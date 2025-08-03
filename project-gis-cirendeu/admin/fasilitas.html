@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kelola Fasilitas - GIS Cirendeu</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+
+      /* Sidebar - Same as dashboard */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 260px;
+        background: linear-gradient(135deg, #424242 0%, #222222 100%);
+        color: white;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+      }
+
+      .sidebar.collapsed {
+        transform: translateX(-260px);
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-header h2 {
+        font-size: 1.3em;
+        margin-bottom: 5px;
+      }
+
+      .sidebar-header p {
+        font-size: 0.8em;
+        opacity: 0.8;
+      }
+
+      .nav-menu {
+        list-style: none;
+        padding: 20px 0;
+      }
+
+      .nav-item {
+        margin-bottom: 5px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background: rgba(255, 255, 255, 0.1);
+        border-right: 3px solid #ffd700;
+      }
+
+      .nav-link i {
+        margin-right: 12px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .user-profile {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+      }
+
+      .logout-btn {
+        width: 100%;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-left: 260px;
+        transition: margin-left 0.3s ease;
+        min-height: 100vh;
+      }
+
+      .main-content.expanded {
+        margin-left: 0;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #666;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.5em;
+        color: #333;
+        margin: 0;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: #424242;
+        color: white;
+      }
+
+      .btn-success {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-danger {
+        background: #dc3545;
+        color: white;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+        color: white;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      .btn i {
+        margin-right: 5px;
+      }
+
+      /* Content */
+      .content {
+        padding: 30px;
+      }
+
+      /* Filters and Search */
+      .filters-section {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .filters-row {
+        display: grid;
+        grid-template-columns: 1fr 200px 200px 150px;
+        gap: 15px;
+        align-items: end;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #424242;
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+      }
+
+      /* Data Table */
+      .table-section {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .table-header {
+        padding: 20px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+      }
+
+      .table-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .table-actions {
+        display: flex;
+        gap: 10px;
+        margin-left: auto;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .data-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+      }
+
+      .data-table tr:hover {
+        background: #f8f9fa;
+      }
+
+      .facility-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .category-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+      }
+
+      .category-masjid {
+        background: #2ecc71;
+      }
+      .category-pendidikan {
+        background: #3498db;
+      }
+      .category-kesehatan {
+        background: #e74c3c;
+      }
+      .category-prasarana {
+        background: #9b59b6;
+      }
+      .category-fasilitas {
+        background: #f39c12;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 5px;
+      }
+
+      .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      /* Pagination */
+      .pagination {
+        padding: 20px;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        border-top: 1px solid #e9ecef;
+      }
+
+      .pagination-info {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .pagination-controls {
+        display: flex;
+        gap: 5px;
+      }
+
+      .pagination-btn {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .pagination-btn:hover:not(:disabled) {
+        background: #f8f9fa;
+      }
+
+      .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .pagination-btn.active {
+        background: #424242;
+        color: white;
+        border-color: #424242;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .modal-title {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .form-group-full {
+        grid-column: 1 / -1;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .modal-footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      /* Loading */
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+
+      .loading i {
+        font-size: 2em;
+        margin-bottom: 10px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+      }
+
+      .empty-state i {
+        font-size: 4em;
+        margin-bottom: 20px;
+        color: #ddd;
+      }
+
+      .empty-state h3 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-260px);
+        }
+
+        .sidebar.open {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .header {
+          padding: 15px;
+        }
+
+        .content {
+          padding: 20px 15px;
+        }
+
+        .filters-row {
+          grid-template-columns: 1fr;
+        }
+
+        .data-table {
+          font-size: 14px;
+        }
+
+        .data-table th,
+        .data-table td {
+          padding: 10px 8px;
+        }
+
+        .modal-content {
+          padding: 20px;
+          margin: 20px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>
+          <i class="fas fa-map-marked-alt"></i>
+          GIS Admin
+        </h2>
+        <p>Kelurahan Cirendeu</p>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="dashboard.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="fasilitas.html" class="nav-link active">
+            <i class="fas fa-map-marker-alt"></i>
+            Data Fasilitas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../index.html" class="nav-link" target="_blank">
+            <i class="fas fa-eye"></i>
+            Lihat Peta Publik
+          </a>
+        </li>
+      </ul>
+
+      <div class="user-profile">
+        <div class="user-info">
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div>
+            <div id="user-name">Loading...</div>
+            <small id="user-email">Loading...</small>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-left">
+          <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Data Fasilitas</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-success" onclick="openModal('add')">
+            <i class="fas fa-plus"></i>
+            Tambah Fasilitas
+          </button>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Filters -->
+        <div class="filters-section">
+          <div class="filters-row">
+            <div class="form-group">
+              <label for="search">Cari Fasilitas</label>
+              <input
+                type="text"
+                id="search"
+                placeholder="Nama, alamat, atau deskripsi..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="category-filter">Kategori</label>
+              <select id="category-filter">
+                <option value="">Semua Kategori</option>
+                <option value="Masjid">Masjid</option>
+                <option value="Pendidikan">Pendidikan</option>
+                <option value="Kesehatan">Kesehatan</option>
+                <option value="Prasarana Umum">Prasarana Umum</option>
+                <option value="Fasilitas Publik">Fasilitas Publik</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="limit">Tampilkan</label>
+              <select id="limit">
+                <option value="10">10 per halaman</option>
+                <option value="25" selected>25 per halaman</option>
+                <option value="50">50 per halaman</option>
+                <option value="100">100 per halaman</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button class="btn btn-primary" onclick="loadFacilities()">
+                <i class="fas fa-search"></i>
+                Filter
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-section">
+          <div class="table-header">
+            <div class="table-title">
+              Daftar Fasilitas
+              <span id="total-count" class="text-muted"></span>
+            </div>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-sm" onclick="exportData()">
+                <i class="fas fa-download"></i>
+                Export
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading State -->
+          <div id="loading" class="loading">
+            <i class="fas fa-spinner"></i>
+            <p>Memuat data fasilitas...</p>
+          </div>
+
+          <!-- Table Content -->
+          <div id="table-content" style="display: none">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Foto</th>
+                  <th>Nama Fasilitas</th>
+                  <th>Kategori</th>
+                  <th>Alamat</th>
+                  <th>Koordinat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="facilities-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="empty-state" style="display: none">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Tidak ada data fasilitas</h3>
+            <p>
+              Belum ada fasilitas yang sesuai dengan kriteria pencarian Anda.
+            </p>
+            <button class="btn btn-primary" onclick="openModal('add')">
+              <i class="fas fa-plus"></i>
+              Tambah Fasilitas Pertama
+            </button>
+          </div>
+
+          <!-- Pagination -->
+          <div id="pagination" class="pagination" style="display: none">
+            <div class="pagination-info" id="pagination-info"></div>
+            <div class="pagination-controls" id="pagination-controls"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Form -->
+    <div class="modal" id="facility-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-title">Tambah Fasilitas</h3>
+          <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="facility-form" enctype="multipart/form-data">
+          <input type="hidden" id="facility-id" name="facility_id" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nama_fasilitas">Nama Fasilitas *</label>
+              <input
+                type="text"
+                id="nama_fasilitas"
+                name="nama_fasilitas"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="kategori">Kategori *</label>
+              <select id="kategori" name="kategori" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Masjid">Masjid</option>
+                <option value="Pendidikan">Pendidikan</option>
+                <option value="Kesehatan">Kesehatan</option>
+                <option value="Prasarana Umum">Prasarana Umum</option>
+                <option value="Fasilitas Publik">Fasilitas Publik</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="latitude">Latitude *</label>
+              <input
+                type="number"
+                id="latitude"
+                name="latitude"
+                step="any"
+                required
+                min="-90"
+                max="90"
+                placeholder="-6.xxxxxx"
+              />
+            </div>
+            <div class="form-group">
+              <label for="longitude">Longitude *</label>
+              <input
+                type="number"
+                id="longitude"
+                name="longitude"
+                step="any"
+                required
+                min="-180"
+                max="180"
+                placeholder="106.xxxxxx"
+              />
+            </div>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="alamat">Alamat</label>
+            <textarea
+              id="alamat"
+              name="alamat"
+              placeholder="Alamat lengkap fasilitas"
+            ></textarea>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="deskripsi">Deskripsi</label>
+            <textarea
+              id="deskripsi"
+              name="deskripsi"
+              placeholder="Deskripsi singkat tentang fasilitas"
+            ></textarea>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="foto">Foto</label>
+            <input type="file" id="foto" name="foto" accept="image/*" />
+            <small class="text-muted"
+              >Format: JPG, PNG, GIF. Maksimal 5MB.</small
+            >
+            <div id="current-photo" style="margin-top: 10px; display: none">
+              <img
+                id="current-photo-img"
+                style="max-width: 200px; border-radius: 5px"
+              />
+              <p><small>Foto saat ini</small></p>
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal()"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            form="facility-form"
+            class="btn btn-primary"
+            id="submit-btn"
+          >
+            <i class="fas fa-save"></i>
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global variables
+      let sidebarOpen = true;
+      let currentPage = 1;
+      let totalPages = 1;
+      let currentMode = "add";
+      let currentFacilityId = null;
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", async () => {
+        await checkAuth();
+        await loadUserProfile();
+        await loadFacilities();
+        setupEventListeners();
+      });
+
+      // Event listeners
+      function setupEventListeners() {
+        // Search input with debounce
+        let searchTimeout;
+        document.getElementById("search").addEventListener("input", () => {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            currentPage = 1;
+            loadFacilities();
+          }, 500);
+        });
+
+        // Category filter
+        document
+          .getElementById("category-filter")
+          .addEventListener("change", () => {
+            currentPage = 1;
+            loadFacilities();
+          });
+
+        // Limit change
+        document.getElementById("limit").addEventListener("change", () => {
+          currentPage = 1;
+          loadFacilities();
+        });
+
+        // Form submission
+        document
+          .getElementById("facility-form")
+          .addEventListener("submit", handleFormSubmit);
+      }
+
+      // Authentication check
+      async function checkAuth() {
+        try {
+          const response = await fetch("../api/auth.php/check");
+          const result = await response.json();
+
+          if (!result.success || !result.data || !result.data.authenticated) {
+            window.location.href = "login.html";
+            return;
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          window.location.href = "login.html";
+        }
+      }
+
+      // Load user profile
+      async function loadUserProfile() {
+        try {
+          const response = await fetch("../api/auth.php/profile");
+          const result = await response.json();
+
+          if (result.success && result.data) {
+            document.getElementById("user-name").textContent = result.data.nama;
+            document.getElementById("user-email").textContent =
+              result.data.email;
+          }
+        } catch (error) {
+          console.error("Failed to load user profile:", error);
+        }
+      }
+
+      // Load facilities
+      async function loadFacilities() {
+        const loading = document.getElementById("loading");
+        const tableContent = document.getElementById("table-content");
+        const emptyState = document.getElementById("empty-state");
+        const pagination = document.getElementById("pagination");
+
+        loading.style.display = "block";
+        tableContent.style.display = "none";
+        emptyState.style.display = "none";
+        pagination.style.display = "none";
+
+        try {
+          const search = document.getElementById("search").value;
+          const kategori = document.getElementById("category-filter").value;
+          const limit = document.getElementById("limit").value;
+          const offset = (currentPage - 1) * limit;
+
+          const params = new URLSearchParams({
+            limit,
+            offset,
+          });
+
+          if (search) params.append("search", search);
+          if (kategori) params.append("kategori", kategori);
+
+          const response = await fetch(`../api/fasilitas.php?${params}`);
+          const result = await response.json();
+
+          if (result.success && result.data) {
+            const facilities = result.data.facilities;
+            const paginationData = result.data.pagination;
+
+            if (facilities.length > 0) {
+              renderFacilitiesTable(facilities);
+              renderPagination(paginationData);
+              tableContent.style.display = "block";
+              pagination.style.display = "flex";
+
+              document.getElementById(
+                "total-count"
+              ).textContent = `(${paginationData.total} total)`;
+            } else {
+              emptyState.style.display = "block";
+              document.getElementById("total-count").textContent = "";
+            }
+          } else {
+            throw new Error(result.message || "Failed to load facilities");
+          }
+        } catch (error) {
+          console.error("Error loading facilities:", error);
+          showError("Gagal memuat data fasilitas");
+          emptyState.style.display = "block";
+        } finally {
+          loading.style.display = "none";
+        }
+      }
+
+      // Render facilities table
+      function renderFacilitiesTable(facilities) {
+        const tbody = document.getElementById("facilities-tbody");
+        tbody.innerHTML = "";
+
+        facilities.forEach((facility) => {
+          const row = document.createElement("tr");
+
+          // Get category class for badge styling
+          const categoryClass = getCategoryClass(facility.kategori);
+
+          row.innerHTML = `
+      <td>
+        ${
+          facility.foto_fasilitas
+            ? `<img src="../uploads/${facility.foto_fasilitas}" class="facility-image" alt="${facility.nama_fasilitas}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+            : ""
+        }
+        <div class="facility-image" style="background: #f8f9fa; display: ${
+          facility.foto_fasilitas ? "none" : "flex"
+        }; align-items: center; justify-content: center; color: #666;"><i class="fas fa-image"></i></div>
+      </td>
+      <td>
+        <strong>${facility.nama_fasilitas}</strong>
+        ${
+          facility.deskripsi
+            ? `<br><small class="text-muted">${facility.deskripsi.substring(
+                0,
+                80
+              )}${facility.deskripsi.length > 80 ? "..." : ""}</small>`
+            : ""
+        }
+      </td>
+      <td>
+        <span class="category-badge ${categoryClass}">
+          ${facility.kategori}
+        </span>
+      </td>
+      <td>
+        ${facility.alamat || '<span class="text-muted">-</span>'}
+      </td>
+      <td>
+        <small>
+          Lat: ${parseFloat(facility.latitude).toFixed(6)}<br>
+          Lng: ${parseFloat(facility.longitude).toFixed(6)}
+        </small>
+      </td>
+      <td>
+        <div class="action-buttons">
+          <button class="btn btn-primary btn-sm" onclick="openModal('edit', ${
+            facility.id_fasilitas
+          })" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="deleteFacility(${
+            facility.id_fasilitas
+          }, '${facility.nama_fasilitas.replace(/'/g, "\\'")}')" title="Hapus">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    `;
+          tbody.appendChild(row);
+        });
+      }
+
+      // Get category class for styling
+      function getCategoryClass(kategori) {
+        const categoryMap = {
+          Masjid: "category-masjid",
+          Pendidikan: "category-pendidikan",
+          Kesehatan: "category-kesehatan",
+          "Prasarana Umum": "category-prasarana",
+          "Fasilitas Publik": "category-fasilitas",
+        };
+        return categoryMap[kategori] || "category-default";
+      }
+
+      // Render pagination
+      function renderPagination(paginationData) {
+        const info = document.getElementById("pagination-info");
+        const controls = document.getElementById("pagination-controls");
+
+        const start = paginationData.offset + 1;
+        const end = Math.min(
+          paginationData.offset + paginationData.limit,
+          paginationData.total
+        );
+
+        info.textContent = `Menampilkan ${start}-${end} dari ${paginationData.total} data`;
+
+        totalPages = Math.ceil(paginationData.total / paginationData.limit);
+
+        controls.innerHTML = "";
+
+        // Previous button
+        const prevBtn = document.createElement("button");
+        prevBtn.className = "pagination-btn";
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => {
+          if (currentPage > 1) {
+            currentPage--;
+            loadFacilities();
+          }
+        };
+        controls.appendChild(prevBtn);
+
+        // Page numbers
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, currentPage + 2);
+
+        for (let i = startPage; i <= endPage; i++) {
+          const pageBtn = document.createElement("button");
+          pageBtn.className = `pagination-btn ${
+            i === currentPage ? "active" : ""
+          }`;
+          pageBtn.textContent = i;
+          pageBtn.onclick = () => {
+            currentPage = i;
+            loadFacilities();
+          };
+          controls.appendChild(pageBtn);
+        }
+
+        // Next button
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "pagination-btn";
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            loadFacilities();
+          }
+        };
+        controls.appendChild(nextBtn);
+      }
+
+      // Modal functions
+      function openModal(mode, facilityId = null) {
+        currentMode = mode;
+        currentFacilityId = facilityId;
+
+        const modal = document.getElementById("facility-modal");
+        const modalTitle = document.getElementById("modal-title");
+        const form = document.getElementById("facility-form");
+
+        form.reset();
+        document.getElementById("current-photo").style.display = "none";
+
+        if (mode === "add") {
+          modalTitle.textContent = "Tambah Fasilitas";
+          document.getElementById("submit-btn").innerHTML =
+            '<i class="fas fa-save"></i> Simpan';
+        } else {
+          modalTitle.textContent = "Edit Fasilitas";
+          document.getElementById("submit-btn").innerHTML =
+            '<i class="fas fa-save"></i> Update';
+          loadFacilityData(facilityId);
+        }
+
+        modal.classList.add("show");
+      }
+
+      function closeModal() {
+        document.getElementById("facility-modal").classList.remove("show");
+      }
+
+      // Load facility data for editing
+      async function loadFacilityData(facilityId) {
+        try {
+          console.log("Loading facility data for ID:", facilityId);
+
+          const response = await fetch(`../api/fasilitas.php/${facilityId}`);
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+          console.log("Loaded facility data:", result);
+
+          if (result.success && result.data) {
+            const facility = result.data;
+
+            // Populate form fields
+            document.getElementById("facility-id").value =
+              facility.id_fasilitas;
+            document.getElementById("nama_fasilitas").value =
+              facility.nama_fasilitas || "";
+            document.getElementById("kategori").value = facility.kategori || "";
+            document.getElementById("latitude").value = facility.latitude || "";
+            document.getElementById("longitude").value =
+              facility.longitude || "";
+            document.getElementById("alamat").value = facility.alamat || "";
+            document.getElementById("deskripsi").value =
+              facility.deskripsi || "";
+
+            // Handle existing photo
+            if (facility.foto_fasilitas) {
+              document.getElementById("current-photo").style.display = "block";
+              document.getElementById(
+                "current-photo-img"
+              ).src = `../uploads/${facility.foto_fasilitas}`;
+            }
+
+            console.log("Form populated successfully");
+          } else {
+            throw new Error(result.message || "Failed to load facility data");
+          }
+        } catch (error) {
+          console.error("Error loading facility data:", error);
+          showError("Gagal memuat data fasilitas: " + error.message);
+          closeModal();
+        }
+      }
+      async function loadFacilityData(facilityId) {
+        try {
+          console.log("Loading facility data for ID:", facilityId);
+
+          const response = await fetch(`../api/fasilitas.php/${facilityId}`);
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+          console.log("Loaded facility data:", result);
+
+          if (result.success && result.data) {
+            const facility = result.data;
+
+            // Populate form fields
+            document.getElementById("facility-id").value =
+              facility.id_fasilitas;
+            document.getElementById("nama_fasilitas").value =
+              facility.nama_fasilitas || "";
+            document.getElementById("kategori").value = facility.kategori || "";
+            document.getElementById("latitude").value = facility.latitude || "";
+            document.getElementById("longitude").value =
+              facility.longitude || "";
+            document.getElementById("alamat").value = facility.alamat || "";
+            document.getElementById("deskripsi").value =
+              facility.deskripsi || "";
+
+            // Handle existing photo
+            if (facility.foto_fasilitas) {
+              document.getElementById("current-photo").style.display = "block";
+              document.getElementById(
+                "current-photo-img"
+              ).src = `../uploads/${facility.foto_fasilitas}`;
+            }
+
+            console.log("Form populated successfully");
+          } else {
+            throw new Error(result.message || "Failed to load facility data");
+          }
+        } catch (error) {
+          console.error("Error loading facility data:", error);
+          showError("Gagal memuat data fasilitas: " + error.message);
+          closeModal();
+        }
+      }
+
+      async function handleFormSubmit(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById("submit-btn");
+        const originalText = submitBtn.innerHTML;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+        try {
+          if (currentMode === "edit") {
+            // SIMPLIFIED EDIT MODE
+            console.log("=== EDIT MODE DEBUG ===");
+            console.log("Facility ID:", currentFacilityId);
+
+            // Get all form values directly
+            const formData = {
+              nama_fasilitas: document
+                .getElementById("nama_fasilitas")
+                .value.trim(),
+              kategori: document.getElementById("kategori").value,
+              latitude: document.getElementById("latitude").value,
+              longitude: document.getElementById("longitude").value,
+              alamat: document.getElementById("alamat").value,
+              deskripsi: document.getElementById("deskripsi").value,
+            };
+
+            console.log("Form data:", formData);
+
+            // Basic validation
+            if (
+              !formData.nama_fasilitas ||
+              !formData.kategori ||
+              !formData.latitude ||
+              !formData.longitude
+            ) {
+              throw new Error(
+                "Nama fasilitas, kategori, latitude, dan longitude harus diisi."
+              );
+            }
+
+            // Create FormData for API
+            const apiFormData = new FormData();
+            apiFormData.append("data", JSON.stringify(formData));
+
+            // Handle file
+            const fileInput = document.getElementById("foto");
+            if (fileInput.files && fileInput.files[0]) {
+              apiFormData.append("foto", fileInput.files[0]);
+              console.log("File attached:", fileInput.files[0].name);
+            }
+
+            console.log("Sending to API...");
+
+            const response = await fetch(
+              `../api/fasilitas.php/${currentFacilityId}`,
+              {
+                method: "POST",
+                body: apiFormData,
+              }
+            );
+
+            const responseText = await response.text();
+            console.log("Raw response:", responseText);
+
+            let result;
+            try {
+              result = JSON.parse(responseText);
+            } catch (parseError) {
+              console.error("Parse error:", parseError);
+              throw new Error(
+                "Server error: " + responseText.substring(0, 200)
+              );
+            }
+
+            console.log("Result:", result);
+
+            if (result.success) {
+              showSuccess("Fasilitas berhasil diupdate");
+              closeModal();
+              loadFacilities();
+            } else {
+              throw new Error(result.message || "Update failed");
+            }
+          } else {
+            // CREATE MODE - unchanged
+            const formData = new FormData(e.target);
+            const data = {};
+
+            formData.forEach((value, key) => {
+              if (key !== "foto") {
+                data[key] = value;
+              }
+            });
+
+            const newFormData = new FormData();
+            newFormData.append("data", JSON.stringify(data));
+
+            const fileInput = document.getElementById("foto");
+            if (fileInput.files && fileInput.files[0]) {
+              newFormData.append("foto", fileInput.files[0]);
+            }
+
+            const response = await fetch("../api/fasilitas.php", {
+              method: "POST",
+              body: newFormData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              showSuccess("Fasilitas berhasil ditambahkan");
+              closeModal();
+              loadFacilities();
+            } else {
+              throw new Error(result.message || "Create failed");
+            }
+          }
+        } catch (error) {
+          console.error("Form submission error:", error);
+          showError(error.message || "Gagal menyimpan data");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      }
+
+      // Delete facility - improved with better error handling
+      async function deleteFacility(facilityId, facilityName) {
+        if (
+          !confirm(
+            `Apakah Anda yakin ingin menghapus fasilitas "${facilityName}"?\n\nTindakan ini tidak dapat dibatalkan.`
+          )
+        ) {
+          return;
+        }
+
+        try {
+          showLoading("Menghapus fasilitas...");
+
+          const response = await fetch(`../api/fasilitas.php/${facilityId}`, {
+            method: "DELETE",
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showSuccess("Fasilitas berhasil dihapus");
+            loadFacilities();
+          } else {
+            throw new Error(result.message || "Delete failed");
+          }
+        } catch (error) {
+          console.error("Delete error:", error);
+          showError("Gagal menghapus fasilitas: " + error.message);
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // Utility functions
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("main-content");
+
+        sidebarOpen = !sidebarOpen;
+
+        if (sidebarOpen) {
+          sidebar.classList.remove("collapsed");
+          mainContent.classList.remove("expanded");
+        } else {
+          sidebar.classList.add("collapsed");
+          mainContent.classList.add("expanded");
+        }
+      }
+
+      async function logout() {
+        if (confirm("Apakah Anda yakin ingin logout?")) {
+          try {
+            await fetch("../api/auth.php/logout", { method: "DELETE" });
+            window.location.href = "login.html";
+          } catch (error) {
+            console.error("Logout error:", error);
+            window.location.href = "login.html";
+          }
+        }
+      }
+
+      // Enhanced notification functions
+      function showSuccess(message) {
+        showNotification(message, "success");
+      }
+
+      function showError(message) {
+        showNotification(message, "error");
+      }
+
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.className = `notification notification-${type}`;
+        notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    max-width: 350px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  `;
+
+        const colors = {
+          success: "#28a745",
+          error: "#dc3545",
+          info: "#17a2b8",
+          warning: "#ffc107",
+        };
+
+        notification.style.backgroundColor = colors[type] || colors.info;
+
+        const icons = {
+          success: "fas fa-check-circle",
+          error: "fas fa-times-circle",
+          info: "fas fa-info-circle",
+          warning: "fas fa-exclamation-triangle",
+        };
+
+        notification.innerHTML = `<i class="${
+          icons[type] || icons.info
+        }"></i> ${message}`;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+          notification.style.transform = "translateX(0)";
+        }, 100);
+
+        // Auto remove
+        setTimeout(() => {
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }, 5000);
+
+        // Click to dismiss
+        notification.addEventListener("click", () => {
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        });
+      }
+
+      function showLoading(message = "Memuat...") {
+        let loadingEl = document.getElementById("custom-loading");
+        if (!loadingEl) {
+          loadingEl = document.createElement("div");
+          loadingEl.id = "custom-loading";
+          loadingEl.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10001;
+      color: white;
+      font-size: 16px;
+    `;
+          document.body.appendChild(loadingEl);
+        }
+
+        loadingEl.innerHTML = `
+    <div style="text-align: center;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 2em; margin-bottom: 10px;"></i>
+      <div>${message}</div>
+    </div>
+  `;
+        loadingEl.style.display = "flex";
+      }
+
+      function hideLoading() {
+        const loadingEl = document.getElementById("custom-loading");
+        if (loadingEl) {
+          loadingEl.style.display = "none";
+        }
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("facility-modal")
+        .addEventListener("click", (e) => {
+          if (e.target === e.currentTarget) {
+            closeModal();
+          }
+        });
+
+      // Mobile responsive
+      function handleResize() {
+        if (window.innerWidth <= 768) {
+          document.getElementById("sidebar").classList.add("collapsed");
+          document.getElementById("main-content").classList.add("expanded");
+          sidebarOpen = false;
+        }
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+
+      // Enhanced keyboard shortcuts
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key) {
+            case "n":
+              e.preventDefault();
+              openModal("add");
+              break;
+            case "f":
+              e.preventDefault();
+              document.getElementById("search").focus();
+              break;
+            case "r":
+              e.preventDefault();
+              loadFacilities();
+              break;
+          }
+        }
+
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      // Auto-refresh data every 5 minutes
+      setInterval(() => {
+        loadFacilities();
+      }, 300000);
+    </script>
+  </body>
+</html>

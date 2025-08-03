@@ -1,0 +1,82 @@
+{
+  "type": "FeatureCollection",
+  "name": "GEOJSON_FASILITAS_PUBLIK",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.3022552274037063,
+        "Longitude": 106.76089511741978,
+        "nama": "SPBU 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760895117419778, -6.302255227403706]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.2958467174588408,
+        "Longitude": 106.76550437317896,
+        "nama": "HALTE 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765504373178956, -6.295846717458841]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.3020427442141465,
+        "Longitude": 106.76097690016131,
+        "nama": "SPBU 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.76097690016131, -6.302042744214146]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.3008969716295793,
+        "Longitude": 106.76120996491014,
+        "nama": "HALTE 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.761209964910137, -6.300896971629579]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.3100051701280577,
+        "Longitude": 106.76256955407912,
+        "nama": "TAMAN WISATA PULAU GINTUNG"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.762569554079121, -6.310005170128058]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latidue": -6.3071912344615235,
+        "Longitude": 106.76088312286474,
+        "nama": "OBSTACLE REPUBLIK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.76088312286474, -6.307191234461524]
+      }
+    }
+  ]
+}

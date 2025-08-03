@@ -1,0 +1,226 @@
+{
+  "type": "FeatureCollection",
+  "name": "GEOJSON_MASJID",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2924776551760093,
+        "Longitude": 106.76628470429573,
+        "Nama": "Masjid Darussa'adah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.766284704295728, -6.292477655176009]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2930748499438591,
+        "Longitude": 106.76765799533823,
+        "Nama": "Masjid LDII Baitul Majid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.767657995338226, -6.293074849943859]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2962314395094241,
+        "Longitude": 106.76940679584277,
+        "Nama": "Mushalla Al Ikhlas Perumahan Bukit Pratama"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.769406795842769, -6.296231439509424]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2981083214743752,
+        "Longitude": 106.76511526133493,
+        "Nama": "Masjid nurul huda"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765115261334927, -6.298108321474375]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2973405069451314,
+        "Longitude": 106.77005052601895,
+        "Nama": "Masjid Al Mukhlishin UMJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.770050526018949, -6.297340506945131]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3005823828444116,
+        "Longitude": 106.76803350467087,
+        "Nama": "Masjid Raya Jabalurrahmah Situ Gintung"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.768033504670868, -6.300582382844412]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3034829914312773,
+        "Longitude": 106.76146745687386,
+        "Nama": "Masjid Al-Irfan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.761467456873859, -6.303482991431277]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3040375176967718,
+        "Longitude": 106.76614522948739,
+        "Nama": "Masjid At - Taqwa UMJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.766145229487392, -6.304037517696772]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3028431526959601,
+        "Longitude": 106.77219629314345,
+        "Nama": "Masjid Nurul Muhajirin"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.772196293143452, -6.30284315269596]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3068954513542215,
+        "Longitude": 106.76721811311435,
+        "Nama": "Masjid Al Istiqomah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.767218113114353, -6.306895451354221]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3059143714265273,
+        "Longitude": 106.772496700559,
+        "Nama": "Masjid Al-Fattaah Cirendeu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.772496700559003, -6.305914371426527]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3106491314815463,
+        "Longitude": 106.76134943976298,
+        "Nama": "Masjid Al Ikhlass"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.761349439762981, -6.310649131481546]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3087722948948404,
+        "Longitude": 106.77104830775068,
+        "Nama": "Masjid Al-Barkah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.771048307750675, -6.30877229489484]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.314744024157859,
+        "Longitude": 106.76916003242354,
+        "Nama": "Masjid Al-Mughirah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.769160032423542, -6.314744024157859]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3146160592546341,
+        "Longitude": 106.77173495312826,
+        "Nama": "Masjid Attaubah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.771734953128259, -6.314616059254634]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.318838884358839,
+        "Longitude": 106.77220702192412,
+        "Nama": "Mesjid Al Ikhlas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.772207021924117, -6.318838884358839]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3218246994933232,
+        "Longitude": 106.76774382603598,
+        "Nama": "Masjid Al-Ihsan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.767743826035982, -6.321824699493323]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3247678432555228,
+        "Longitude": 106.76143527030946,
+        "Nama": "Masjid Jami' Al Hidayah, Pisangan Ciputat Timur"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.761435270309462, -6.324767843255523]
+      }
+    }
+  ]
+}

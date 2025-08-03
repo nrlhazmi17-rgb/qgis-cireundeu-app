@@ -1,0 +1,178 @@
+{
+  "type": "FeatureCollection",
+  "name": "GEOJSON_PENDIDIKAN",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2974504804737332,
+        "Longitude": 106.76705416303209,
+        "Nama": "Universitas Muhammadiyah jakarta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.767054163032086, -6.297450480473733]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2959936238093759,
+        "Longitude": 106.76645657377914,
+        "Nama": "ITB Ahmad Dahlan Jkarta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.766456573779138, -6.295993623809376]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3091306268508633,
+        "Longitude": 106.76008353094275,
+        "Nama": "UIN Syarif Hidayatullah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760083530942751, -6.309130626850863]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2983426762484163,
+        "Longitude": 106.76896684058777,
+        "Nama": "Labschool UMJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.768966840587765, -6.298342676248416]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.31521819016021,
+        "Longitude": 106.76013435589931,
+        "Nama": "Labschool Ruhama"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760134355899311, -6.31521819016021]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3141114811643604,
+        "Longitude": 106.77001928106137,
+        "Nama": "SMAN 8 Tangerang Selatan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.770019281061366, -6.31411148116436]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.313809272238827,
+        "Longitude": 106.76990228106142,
+        "Nama": "SMPN 2 Tangerang selatan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.76990228106142, -6.313809272238827]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.313670232225169,
+        "Longitude": 106.77157574984035,
+        "Nama": "SD Negri 3 Cirendeu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.771575749840352, -6.313670232225169]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2946505414618068,
+        "Longitude": 106.78121991493377,
+        "Nama": "SD Negri 1 cirendeu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.781219914933772, -6.294650541461807]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3135729821852378,
+        "Longitude": 106.76093068476908,
+        "Nama": "Darus-Sunnah International Institute for Hadith Sciences"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760930684769079, -6.313572982185238]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3152309279284387,
+        "Longitude": 106.7600663080438,
+        "Nama": "ayasan Prof DR Zakiah Daradjat"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760066308043804, -6.315230927928439]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3034560341167456,
+        "Longitude": 106.76549448662304,
+        "Nama": "Madrasah Ibtidaiyah Al-Hidayah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765494486623041, -6.303456034116746]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3006324649328178,
+        "Longitude": 106.76385320989749,
+        "Nama": "SD Tahfizh Jabal Rahmah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.763853209897491, -6.300632464932818]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3185110111957341,
+        "Longitude": 106.76843985408541,
+        "Nama": "SMP-SMA Al-Fath Cirendeu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.768439854085415, -6.318511011195734]
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "type": "FeatureCollection",
+  "name": "GEOJSON_PRASARANA_UMUM",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.2938853567372171,
+        "longitude": 106.76676749662194,
+        "nama": "MAKAM PONCOL"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.766767496621938, -6.293885356737217]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.311459610550556,
+        "longitude": 106.77294730631323,
+        "nama": "MAKAM TPU CIRENDEU INDAH III"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.772947306313228, -6.311459610550556]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.3066922276118671,
+        "longitude": 106.76592182500382,
+        "nama": "TAMAN MAKAM KELUARGA TPK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765921825003815, -6.306692227611867]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.3020914716894278,
+        "longitude": 106.76478499640641,
+        "nama": "JOGING TREK GINTUNG"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.764784996406405, -6.302091471689428]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.3100798233109634,
+        "longitude": 106.76255882883625,
+        "nama": "TAMAN WISATA  PULAU GINTUNG"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.762558828836248, -6.310079823310963]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.2992477236420168,
+        "longitude": 106.76518598291523,
+        "nama": "BALAI WARGA "
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765185982915227, -6.299247723642017]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "latitude": -6.3144637626853877,
+        "longitude": 106.77080392102096,
+        "nama": "KANTOR KELURAHAN"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.770803921020956, -6.314463762685388]
+      }
+    }
+  ]
+}

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Admin - GIS Cirendeu</title>
+    <meta
+      name="description"
+      content="Admin login untuk Sistem Informasi Geografis Cirendeu"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* ===============================================
+         ADMIN LOGIN STYLES
+         =============================================== */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #424242 0%, #222222 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      /* ===============================================
+         LOGIN CONTAINER
+         =============================================== */
+      .login-container {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        overflow: hidden;
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #424242, #222222);
+      }
+
+      /* ===============================================
+         HEADER SECTION
+         =============================================== */
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header .logo {
+        font-size: 3em;
+        color: #424242;
+        margin-bottom: 10px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .login-header h1 {
+        color: #333;
+        font-size: 1.8em;
+        margin-bottom: 5px;
+      }
+
+      .login-header p {
+        color: #666;
+        font-size: 0.9em;
+      }
+
+      /* ===============================================
+         NAVIGATION
+         =============================================== */
+      .back-to-public {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .back-to-public a {
+        color: #424242;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: color 0.3s ease;
+      }
+
+      .back-to-public a:hover {
+        color: #333;
+        text-decoration: underline;
+      }
+
+      /* ===============================================
+         FORM STYLES
+         =============================================== */
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 40px 12px 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #424242;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(66, 66, 66, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .form-group .icon {
+        position: absolute;
+        right: 15px;
+        top: 38px;
+        color: #666;
+        transition: color 0.3s ease;
+      }
+
+      .form-group input:focus + .icon {
+        color: #424242;
+      }
+
+      /* ===============================================
+         PASSWORD FIELD
+         =============================================== */
+      .password-group {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 38px;
+        cursor: pointer;
+        color: #666;
+        user-select: none;
+        transition: color 0.3s ease;
+      }
+
+      .password-toggle:hover {
+        color: #424242;
+      }
+
+      /* ===============================================
+         SUBMIT BUTTON
+         =============================================== */
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #424242 0%, #222222 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(66, 66, 66, 0.3);
+      }
+
+      .login-btn:active {
+        transform: translateY(0);
+      }
+
+      .login-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .login-btn .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid transparent;
+        border-top: 2px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ===============================================
+         MESSAGES
+         =============================================== */
+      .message {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid;
+        display: none;
+        animation: slideDown 0.3s ease;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .error-message {
+        background: #fee;
+        color: #c33;
+        border-left-color: #c33;
+      }
+
+      .success-message {
+        background: #efe;
+        color: #363;
+        border-left-color: #363;
+      }
+
+      /* ===============================================
+         FOOTER & LINKS
+         =============================================== */
+      .forgot-password {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .forgot-password a {
+        color: #424242;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: color 0.3s ease;
+      }
+
+      .forgot-password a:hover {
+        color: #333;
+        text-decoration: underline;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e1e5e9;
+        color: #666;
+        font-size: 0.8em;
+      }
+
+      /* ===============================================
+         RESPONSIVE DESIGN
+         =============================================== */
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 30px 20px;
+          margin: 10px;
+        }
+
+        .login-header h1 {
+          font-size: 1.5em;
+        }
+
+        .login-header .logo {
+          font-size: 2.5em;
+        }
+      }
+
+      /* ===============================================
+         LOADING STATES
+         =============================================== */
+      .form-loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .form-loading .login-btn .spinner {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <!-- Navigation -->
+      <div class="back-to-public">
+        <a href="../index.html">
+          <i class="fas fa-arrow-left"></i> Kembali ke Peta Publik
+        </a>
+      </div>
+
+      <!-- Header -->
+      <div class="login-header">
+        <div class="logo">
+          <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <h1>Admin Login</h1>
+        <p>Sistem Informasi Geografis Cirendeu</p>
+      </div>
+
+      <!-- Messages -->
+      <div id="error-message" class="message error-message"></div>
+      <div id="success-message" class="message success-message"></div>
+
+      <!-- Login Form -->
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email"> <i class="fas fa-envelope"></i> Email </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Masukkan email admin"
+            autocomplete="email"
+          />
+          <div class="icon">
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
+
+        <div class="form-group password-group">
+          <label for="password"> <i class="fas fa-lock"></i> Password </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Masukkan password"
+            autocomplete="current-password"
+          />
+          <div class="password-toggle" onclick="togglePassword()">
+            <i class="fas fa-eye" id="eye-icon"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn" id="login-btn">
+          <div class="spinner" id="login-spinner"></div>
+          <span id="login-text">
+            <i class="fas fa-sign-in-alt"></i> Masuk
+          </span>
+        </button>
+      </form>
+
+      <!-- Additional Links -->
+      <div class="forgot-password">
+        <a href="#" onclick="showForgotPassword()" role="button">
+          Lupa password?
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>&copy; 2024 GIS Cirendeu. All rights reserved.</p>
+      </div>
+    </div>
+
+    <script>
+      /**
+       * ===============================================
+       * ADMIN LOGIN APPLICATION
+       * ===============================================
+       */
+
+      class AdminLogin {
+        constructor() {
+          this.form = document.getElementById("login-form");
+          this.loginBtn = document.getElementById("login-btn");
+          this.loginSpinner = document.getElementById("login-spinner");
+          this.loginText = document.getElementById("login-text");
+          this.errorMessage = document.getElementById("error-message");
+          this.successMessage = document.getElementById("success-message");
+
+          this.apiEndpoints = {
+            login: "../api/auth.php/login",
+            check: "../api/auth.php/check",
+          };
+
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.checkAuthStatus();
+          this.focusEmailInput();
+        }
+
+        setupEventListeners() {
+          this.form.addEventListener("submit", (e) => this.handleSubmit(e));
+
+          // Enter key support for password field
+          document
+            .getElementById("password")
+            .addEventListener("keypress", (e) => {
+              if (e.key === "Enter") {
+                this.form.dispatchEvent(new Event("submit"));
+              }
+            });
+
+          // Real-time validation
+          document.getElementById("email").addEventListener("blur", (e) => {
+            this.validateEmail(e.target.value);
+          });
+
+          document.getElementById("password").addEventListener("input", (e) => {
+            this.validatePassword(e.target.value);
+          });
+        }
+
+        async handleSubmit(e) {
+          e.preventDefault();
+
+          const formData = new FormData(this.form);
+          const loginData = {
+            email: formData.get("email").trim(),
+            password: formData.get("password"),
+          };
+
+          // Client-side validation
+          if (!this.validateForm(loginData)) {
+            return;
+          }
+
+          this.setLoadingState(true);
+          this.hideMessages();
+
+          try {
+            const response = await fetch(this.apiEndpoints.login, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(loginData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              this.showSuccess("Login berhasil! Mengalihkan ke dashboard...");
+
+              // Clear form
+              this.form.reset();
+
+              // Redirect after delay
+              setTimeout(() => {
+                window.location.href = "dashboard.html";
+              }, 1500);
+            } else {
+              this.showError(
+                result.message || "Login gagal. Silakan coba lagi."
+              );
+            }
+          } catch (error) {
+            console.error("Login error:", error);
+            this.showError("Terjadi kesalahan koneksi. Silakan coba lagi.");
+          } finally {
+            this.setLoadingState(false);
+          }
+        }
+
+        validateForm(data) {
+          const errors = [];
+
+          if (!data.email) {
+            errors.push("Email wajib diisi");
+          } else if (!this.isValidEmail(data.email)) {
+            errors.push("Format email tidak valid");
+          }
+
+          if (!data.password) {
+            errors.push("Password wajib diisi");
+          } else if (data.password.length < 3) {
+            errors.push("Password minimal 3 karakter");
+          }
+
+          if (errors.length > 0) {
+            this.showError(errors.join(", "));
+            return false;
+          }
+
+          return true;
+        }
+
+        validateEmail(email) {
+          const emailInput = document.getElementById("email");
+          if (email && !this.isValidEmail(email)) {
+            emailInput.style.borderColor = "#dc3545";
+            return false;
+          } else {
+            emailInput.style.borderColor = "#e1e5e9";
+            return true;
+          }
+        }
+
+        validatePassword(password) {
+          const passwordInput = document.getElementById("password");
+          if (password && password.length < 3) {
+            passwordInput.style.borderColor = "#dc3545";
+            return false;
+          } else {
+            passwordInput.style.borderColor = "#e1e5e9";
+            return true;
+          }
+        }
+
+        isValidEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+
+        setLoadingState(loading) {
+          if (loading) {
+            this.loginBtn.disabled = true;
+            this.form.classList.add("form-loading");
+            this.loginText.innerHTML = "Sedang login...";
+          } else {
+            this.loginBtn.disabled = false;
+            this.form.classList.remove("form-loading");
+            this.loginText.innerHTML =
+              '<i class="fas fa-sign-in-alt"></i> Masuk';
+          }
+        }
+
+        showError(message) {
+          this.hideMessages();
+          this.errorMessage.textContent = message;
+          this.errorMessage.style.display = "block";
+          this.autoHideMessage(this.errorMessage);
+        }
+
+        showSuccess(message) {
+          this.hideMessages();
+          this.successMessage.textContent = message;
+          this.successMessage.style.display = "block";
+          this.autoHideMessage(this.successMessage);
+        }
+
+        hideMessages() {
+          this.errorMessage.style.display = "none";
+          this.successMessage.style.display = "none";
+        }
+
+        autoHideMessage(element) {
+          setTimeout(() => {
+            if (element.style.display === "block") {
+              element.style.display = "none";
+            }
+          }, 5000);
+        }
+
+        async checkAuthStatus() {
+          try {
+            const response = await fetch(this.apiEndpoints.check);
+            const result = await response.json();
+
+            if (result.success && result.data?.authenticated) {
+              // Already logged in, redirect to dashboard
+              this.showSuccess("Anda sudah login. Mengalihkan ke dashboard...");
+              setTimeout(() => {
+                window.location.href = "dashboard.html";
+              }, 1000);
+            }
+          } catch (error) {
+            // Ignore error, user is probably not logged in
+            console.log("Auth check failed:", error);
+          }
+        }
+
+        focusEmailInput() {
+          setTimeout(() => {
+            document.getElementById("email").focus();
+          }, 500);
+        }
+      }
+
+      /**
+       * ===============================================
+       * UTILITY FUNCTIONS
+       * ===============================================
+       */
+
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.getElementById("eye-icon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.classList.remove("fa-eye");
+          eyeIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.classList.remove("fa-eye-slash");
+          eyeIcon.classList.add("fa-eye");
+        }
+      }
+
+      function showForgotPassword() {
+        alert(
+          "Fitur reset password belum tersedia.\n\nSilakan hubungi administrator sistem untuk reset password.\n\nEmail: admin@cirendeu.com"
+        );
+      }
+
+      /**
+       * ===============================================
+       * APPLICATION INITIALIZATION
+       * ===============================================
+       */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initialize login application
+        new AdminLogin();
+
+        // Add keyboard shortcuts
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            document.querySelector(".form-group input:focus")?.blur();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

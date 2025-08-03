@@ -1,0 +1,451 @@
+/* ===============================================
+   GIS CIRENDEU - MAIN STYLESHEET
+   Public Map Interface Styles
+   =============================================== */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* ===============================================
+   MAP CONTAINER
+   =============================================== */
+#map {
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  transition: margin-left 0.3s ease;
+}
+
+#map.sidebar-open {
+  margin-left: 350px;
+}
+
+/* ===============================================
+   SIDEBAR LAYOUT
+   =============================================== */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 350px;
+  background: linear-gradient(135deg, #424242 0%, #222222 100%);
+  color: white;
+  z-index: 1000;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+#sidebar.collapsed {
+  transform: translateX(-300px);
+}
+
+/* ===============================================
+   SIDEBAR HEADER
+   =============================================== */
+.sidebar-header {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sidebar-header i {
+  margin-right: 10px;
+  color: #ffd700;
+}
+
+/* ===============================================
+   SIDEBAR CONTENT
+   =============================================== */
+.sidebar-content {
+  padding: 20px;
+}
+
+.sidebar-content h3 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #ffd700;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 5px;
+}
+
+/* ===============================================
+   SIDEBAR SECTIONS
+   =============================================== */
+.layer-section,
+.stats-section,
+.info-section,
+.admin-section {
+  margin-bottom: 25px;
+}
+
+/* ===============================================
+   LAYER CONTROLS
+   =============================================== */
+.layer-controls {
+  margin-bottom: 30px;
+}
+
+.layer-item {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.layer-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.layer-item input[type="checkbox"] {
+  margin-right: 12px;
+  transform: scale(1.2);
+  accent-color: #ffd700;
+}
+
+.layer-item label {
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.layer-item label i {
+  margin-right: 8px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ===============================================
+   STATISTICS PANEL
+   =============================================== */
+.stats-panel {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+}
+
+.stat-count {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* ===============================================
+   INFO PANEL
+   =============================================== */
+.info-panel {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.feature-info {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  min-height: 60px;
+}
+
+.text-muted {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* ===============================================
+   ADMIN ACTIONS PANEL
+   =============================================== */
+.admin-actions {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-btn {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-btn:hover {
+  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.admin-btn.secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: white;
+}
+
+.admin-btn.secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.admin-btn i {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+.admin-btn span {
+  flex: 1;
+}
+
+/* ===============================================
+   SIDEBAR TOGGLE BUTTON
+   =============================================== */
+.toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: translateY(-50%);
+}
+
+.toggle-btn button {
+  background: #424242;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.toggle-btn button:hover {
+  background: #5a6fd8;
+  transform: scale(1.1);
+}
+
+.toggle-btn button i {
+  transition: transform 0.3s ease;
+}
+
+#sidebar.collapsed .toggle-btn button i {
+  transform: rotate(180deg);
+}
+
+/* ===============================================
+   LOADING INDICATOR
+   =============================================== */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #424242;
+}
+
+.loading-spinner i {
+  font-size: 3em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.loading-spinner p {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+/* ===============================================
+   LEAFLET CUSTOMIZATIONS
+   =============================================== */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-popup-content {
+  margin: 15px;
+  line-height: 1.6;
+}
+
+.popup-title {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.popup-category {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.popup-address {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.popup-address i {
+  margin-right: 4px;
+  color: #007bff;
+}
+
+.popup-photo img {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===============================================
+   ANIMATIONS
+   =============================================== */
+.feature-info-update {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+@media (max-width: 768px) {
+  #sidebar {
+    width: 280px;
+  }
+
+  #map.sidebar-open {
+    margin-left: 280px;
+  }
+
+  #sidebar.collapsed {
+    transform: translateX(-230px);
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.3em;
+  }
+
+  .sidebar-content {
+    padding: 15px;
+  }
+
+  .admin-btn {
+    padding: 10px;
+    font-size: 0.85em;
+  }
+
+  .admin-btn i {
+    margin-right: 6px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  #sidebar {
+    width: 100%;
+  }
+
+  #map.sidebar-open {
+    margin-left: 0;
+  }
+
+  #sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+
+  .toggle-btn {
+    right: 10px;
+    top: 10px;
+    transform: none;
+  }
+
+  .toggle-btn button {
+    border-radius: 6px;
+    position: relative;
+    z-index: 1001;
+  }
+}
+
+/* ===============================================
+   PRINT STYLES
+   =============================================== */
+@media print {
+  .sidebar,
+  .leaflet-control-container {
+    display: none !important;
+  }
+
+  #map {
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "type": "FeatureCollection",
+  "name": "GEOJSON_KESEHATAN",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3057864044025091,
+        "Longitude": 106.7568111426163,
+        "nama": "RS Syarif Hidyatullah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7568111426163, -6.305786404402509]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3065458690130249,
+        "Longitude": 106.75954934657838,
+        "nama": "RS Hermina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.759549346578382, -6.306545869013025]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3154767110376051,
+        "Longitude": 106.76922907599055,
+        "nama": "Klinik Gigi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.769229075990552, -6.315476711037605]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3060103062243522,
+        "Longitude": 106.76608089374527,
+        "nama": "Apotek Nurul "
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.766080893745269, -6.306010306224352]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.2961676842065835,
+        "Longitude": 106.76574626987825,
+        "nama": "Apotek kawi jaya"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.76574626987825, -6.296167684206583]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.297042731189558,
+        "Longitude": 106.7657462698955,
+        "nama": "Apotek manjur sehat"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.765746269895502, -6.297042731189558]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3112042622555666,
+        "Longitude": 106.76247734915607,
+        "nama": "Apotek hana"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.762477349156072, -6.311204262255567]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Latitude": -6.3063936194850463,
+        "Longitude": 106.75950704707738,
+        "nama": "Apotik"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.759507047077378, -6.306393619485046]
+      }
+    }
+  ]
+}
